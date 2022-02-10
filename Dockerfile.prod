@@ -3,7 +3,8 @@ WORKDIR /app
 COPY package.json .
 RUN yarn install 
 COPY . .
-
+ARG REACT_APP_NAME
+ENV REACT_APP_NAME=$REACT_APP_NAME
 RUN yarn build
 
 FROM nginx

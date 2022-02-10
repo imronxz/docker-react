@@ -116,3 +116,14 @@ COPY --from=build /app/build /usr/share/nginx/html
 ## COPY from node as build, in /app/build Container then save to nginx directory
 ```Dockerfile
 COPY --from=build /app/build /usr/share/nginx/html
+```
+#### Build Docker Image Dockerfile on Production
+```
+docker build -f Dockerfile.prod -t docker-image-prod .
+```
+#### Run Docker Container Production
+```
+docker run --env-file ./.env -dp 8080:80 --name react-app-prod react-image-prod
+```
+
+
