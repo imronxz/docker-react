@@ -132,3 +132,7 @@ docker-compose up -d
 ```
 docker-compose down
 ```
+#### Rebuild docker container with Compose
+```
+docker-compose up -d --build
+```
