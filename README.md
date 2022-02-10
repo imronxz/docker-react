@@ -88,3 +88,31 @@ docker-compose down
 ```
 docker-compose up -d --build
 ```
+#### Multi-Stage Docker Builds - Dockerfile.dev & Dockerfile.prod
+- Dockerfile.dev
+```Dockerfile
+FROM node
+WORKDIR /app
+COPY package.json .
+RUN yarn install 
+COPY . .
+ENV REACT_APP_FOOD=sate
+EXPOSE 3000
+CMD ["yarn", "start"]
+```
+- Dockerfile.prod - with nginx
+
+```Dockerfile
+FROM node as build
+WORKDIR /app
+COPY package.json .
+RUN yarn install 
+COPY . .
+RUN yarn build
+
+FROM nginx
+COPY --from=build /app/build /usr/share/nginx/html
+```
+## COPY from node as build, in /app/build Container then save to nginx directory
+```Dockerfile
+COPY --from=build /app/build /usr/share/nginx/html
