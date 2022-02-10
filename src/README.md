@@ -106,4 +106,29 @@ REACT_APP_NAME=imronxz
 ## Running command with .env ENVIRONMENT VARIABLES
 ``` env run
 docker run --env-file ./.env -v $(pwd)/src:/app/src -dp 3000:3000 --name react-app react-image
+```
 
+#### Creating docker-compose.yml
+```yml
+version: "3"
+services:
+  react-app: 
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./src:/app/src
+    environment:
+      - REACT_APP_NAME=imronxz
+      # CHOKIDAR_USEPOLLING=true -> for windows root Docker
+    # env_file:
+    #   - ./.env
+```
+#### Run docker container with Compose
+```
+docker-compose up -d
+```
+#### Stop docker container with Compose
+```
+docker-compose down
+```
