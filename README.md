@@ -88,7 +88,7 @@ docker-compose down
 ```
 docker-compose up -d --build
 ```
-#### Multi-Stage Docker Builds - Dockerfile.dev & Dockerfile.prod
+## Multi-Stage Dockerfile - Dockerfile.dev & Dockerfile.prod
 - Dockerfile.dev
 ```Dockerfile
 FROM node
@@ -108,6 +108,8 @@ WORKDIR /app
 COPY package.json .
 RUN yarn install 
 COPY . .
+ARG REACT_APP_NAME
+ENV REACT_APP_NAME=$REACT_APP_NAME
 RUN yarn build
 
 FROM nginx
@@ -125,5 +127,51 @@ docker build -f Dockerfile.prod -t docker-image-prod .
 ```
 docker run --env-file ./.env -dp 8080:80 --name react-app-prod react-image-prod
 ```
-
+## Multi-Stage docker-compose - docker-compose-dev.yml & docker-compose-prod.yml
+- docker-compose-dev.yml
+```yml
+version: "3"
+services:
+  react-app: 
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./src:/app/src
+    environment:
+      - REACT_APP_NAME=imronxz-dev
+      # CHOKIDAR_USEPOLLING=true -> for windows root Docker
+    # env_file:
+    #   - ./.env
+```
+- docker-compose-prod.yml
+```yml
+version: "3"
+services:
+  react-app: 
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+      args:
+        - REACT_APP_NAME=imronxz-prod
+    ports:
+      - "8080:80"
+    
+    # env_file:
+    #   - ./.env
+```
+## run build on dev mode
+```
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d --build
+```
+## run build on prod mode
+```
+docker-compose -f docker-compose.yml -f docker-compose-prod.yml up -d --build
+```
+## stop docker-compose dev/prod
+```
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml down
+```
 
