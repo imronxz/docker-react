@@ -35,13 +35,12 @@ CMD ["yarn", "start"]
 ```
 #### Create .dockerignore inside Project ReactJs
 ```.dockerignore
-FROM node
-WORKDIR /app
-COPY package.json .
-RUN yarn install 
-COPY . .
-EXPOSE 3000
-CMD ["yarn", "start"]
+node_modules
+Dockerfile
+.git
+.gitignore
+.dockerignore
+.env
 ```
 
 ## rebuild Docker image react-image with .dockerignore
