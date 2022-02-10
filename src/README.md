@@ -104,7 +104,7 @@ docker run -e REACT_APP_NAME=imronxz -v $(pwd)/src:/app/src:ro -dp 3000:3000 --n
 ```
 REACT_APP_NAME=imronxz
 ```
-## RUnning command with .env ENVIRONMENT VARIABLES
+## Running command with .env ENVIRONMENT VARIABLES
 ``` env run
 docker run --env-file ./.env -v $(pwd)/src:/app/src -dp 3000:3000 --name react-app react-image
 
