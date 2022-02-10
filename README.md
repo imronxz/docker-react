@@ -17,14 +17,6 @@ CMD ["yarn", "start"]
 ```zsh
  docker image ls
 ```
-## run command to run Docker image without port
-```zsh
- docker run -d --name react-app react-image
-```
-## run command to stop Docker image
-```zsh
- docker rm react-app -f
-```
 ## run command to run Docker image with port 3000:3000 by localhost
 ```zsh
  docker run -d -p 3000:3000 --name react-app react-image
@@ -32,6 +24,10 @@ CMD ["yarn", "start"]
 ## Run a command in a running container using bash
 ```zsh
  docker exec --it react-app bash
+```
+## run command to stop Docker image
+```zsh
+ docker rm react-app -f
 ```
 #### Create .dockerignore inside Project ReactJs
 ```.dockerignore
@@ -41,28 +37,6 @@ Dockerfile
 .gitignore
 .dockerignore
 .env
-```
-
-## rebuild Docker image react-image with .dockerignore
-```rebuild
-docker build -t react-image ./
-```
-## run Image Container 
-```Run Container
-docker run -dp 3000:3000 --name react-app react-image
-```
-## Run a command in a running container using bash
-```zsh
-docker exec --it react-app bash
-```
-
-#### Ulang build Docker apabila terjadi perubahan di Source Code apps
-```build
-docker build -t react-image ./
-```
-## run Image Container 
-```Run Container
-docker run -dp 3000:3000 --name react-app react-image
 ```
 ## pwd command on pws, cmd, linux
 ```command pwd
