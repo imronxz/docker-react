@@ -35,13 +35,12 @@ CMD ["yarn", "start"]
 ```
 #### Create .dockerignore inside Project ReactJs
 ```.dockerignore
-FROM node
-WORKDIR /app
-COPY package.json .
-RUN yarn install 
-COPY . .
-EXPOSE 3000
-CMD ["yarn", "start"]
+node_modules
+Dockerfile
+.git
+.gitignore
+.dockerignore
+.env
 ```
 
 ## rebuild Docker image react-image with .dockerignore
@@ -78,3 +77,33 @@ docker run -v /home/jojo/Javascript/npx-create-mf-app/docker-react/src:/app/src 
 ```cmd zsh linux
 docker run -v $(pwd)/src:/app/src -d -p 3000:3000 --name react-app react-image
 ```
+
+#### Simpan Container image build on local directory read-only
+```
+docker run -v $(pwd)/src:/app/src:ro -d -p 3000:3000 --name react-app react-image
+```
+
+#### Docker ENV on Dockerfile
+``` Dockerfile
+FROM node
+WORKDIR /app
+COPY package.json .
+RUN yarn install 
+COPY . .
+ENV REACT_APP_NAME=imronxz
+EXPOSE 3000
+CMD ["yarn", "start"]
+```
+## Running command with Dockerfile ENVIRONMENT VARIABLES 
+``` env run REACT_APP_NAME=imronxz
+docker run -e REACT_APP_NAME=imronxz -v $(pwd)/src:/app/src:ro -dp 3000:3000 --name react-app react-image
+```
+#### Creating .env React-Project
+- .env
+```
+REACT_APP_NAME=imronxz
+```
+## Running command with .env ENVIRONMENT VARIABLES
+``` env run
+docker run --env-file ./.env -v $(pwd)/src:/app/src -dp 3000:3000 --name react-app react-image
+
