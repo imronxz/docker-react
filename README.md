@@ -1,5 +1,13 @@
+#### Create .dockerignore inside Project ReactJs
+```.dockerignore
+node_modules
+Dockerfile
+.git
+.gitignore
+.dockerignore
+.env
+```
 #### Create Dockerfile inside Project ReactJs
-
 ```Dockerfile
 FROM node
 WORKDIR /app
@@ -29,15 +37,7 @@ CMD ["yarn", "start"]
 ```zsh
  docker rm react-app -f
 ```
-#### Create .dockerignore inside Project ReactJs
-```.dockerignore
-node_modules
-Dockerfile
-.git
-.gitignore
-.dockerignore
-.env
-```
+
 ## pwd command on pws, cmd, linux
 ```command pwd
 ${pwd} #on powershell
